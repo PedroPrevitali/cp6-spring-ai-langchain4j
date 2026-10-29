@@ -9,7 +9,8 @@ public class Lang4jChatService {
     private static ChatModel connectModel() {
         return OllamaChatModel.builder()
                 .baseUrl("http://localhost:11434")
-                .modelName("llama3.2")
+                .modelName("qwen3.5:4b")
+                .think(false)
                 .build();
     }
 

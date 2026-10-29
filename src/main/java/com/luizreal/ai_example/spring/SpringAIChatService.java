@@ -1,6 +1,7 @@
 package com.luizreal.ai_example.spring;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.ollama.api.OllamaChatOptions;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayDeque;
@@ -26,6 +27,7 @@ public class SpringAIChatService {
         return chatClient
                 .prompt()
                 .user(userPrompt)
+                .options(OllamaChatOptions.builder().disableThinking().build())
                 .call()
                 .content()
                 .replace("\n", "");
@@ -44,6 +46,7 @@ public class SpringAIChatService {
             response = chatClientBuilder.build()
                     .prompt()
                     .user(promptWithMemory)
+                    .options(OllamaChatOptions.builder().disableThinking().build())
                     .call()
                     .content();
 
