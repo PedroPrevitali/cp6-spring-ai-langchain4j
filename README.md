@@ -25,6 +25,8 @@ ollama pull qwen3.5:4b
 ollama pull nomic-embed-text
 ```
 
+Esses modelos estão disponíveis na biblioteca do Ollama (`ollama.com/library`), onde foram verificados: `qwen3.5` (com variantes de 0.8b a 122b, usada a de 4b), `nomic-embed-text` (modelo de embeddings) e `mistral` (7b, usado nos testes iniciais).
+
 Depois deixe o Ollama rodando:
 
 ```bash
@@ -199,9 +201,9 @@ A resposta foi "400", que está correta segundo a RFC 7231 incluída no projeto.
 
 ### Chatbot em localhost:8080
 
-![Chatbot em localhost:8080](docs/imagens/04-chatbot-localhost-8080.png)
+![Chatbot em localhost:8080](docs/imagens/04-chatbot-conversa-localhost-8080.png)
 
-Página inicial do chat servida pela aplicação em `http://localhost:8080`.
+Conversa na página `http://localhost:8080`. A segunda pergunta ("E, em uma frase, qual a diferenca dele para o Spring AI?") não cita o termo Spring Boot, mas a resposta mostra que o chat usou o histórico da sessão para entender que a pergunta se refere ao Spring Boot.
 
 ## Swagger
 
@@ -254,6 +256,13 @@ O `qwen3.5` é um modelo com raciocínio. Com o raciocínio ligado, as respostas
 - LangChain4j: `.think(false)` em `Lang4jChatService.java`.
 
 Se o modelo trocado não tiver raciocínio, essas chamadas podem ser removidas.
+
+### Tempo limite do chat
+
+Como o modelo roda no CPU, o tempo de resposta do chat com histórico pode passar de 45 segundos. Por isso o limite foi aumentado para 300 segundos em dois lugares:
+
+- `app.chat.timeout-seconds=300` em `application.properties`.
+- `REQUEST_TIMEOUT_MS = 300000` em `templates/index.html`.
 
 ## Observações para aula
 
